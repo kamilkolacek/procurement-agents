@@ -2,7 +2,7 @@
 # risk: high => every line in this category goes to the review queue.
 # unspsc: draft crosswalk at segment/family level, NOT yet verified against the UNSPSC code set.
 version: "2026.1-draft"
-status: draft
+status: approved  # owner approval in chat 2026-11-09; UNSPSC crosswalk still unverified
 unspsc_crosswalk_status: unverified
 
 categories:

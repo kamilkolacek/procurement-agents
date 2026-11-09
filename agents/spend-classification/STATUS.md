@@ -3,10 +3,10 @@
 **Phase:** 1 — Synthetic data and golden set (complete, pending review)
 **Autonomy level:** L0 propose-only
 **Data:** synthetic only (seed 20261108)
-**Last updated:** 2026-11-08
+**Last updated:** 2026-11-09
 
 ## Done in Phase 1
-- Draft taxonomy `taxonomy/taxonomy.yaml` (`2026.1-draft`): 11 L1, 40 L2 plus
+- Taxonomy `taxonomy/taxonomy.yaml` (`2026.1-draft`, **approved by the owner 2026-11-09**): 11 L1, 40 L2 plus
   `UNCLASSIFIED.REVIEW`; 8 high-risk categories; UNSPSC crosswalk **unverified**.
 - Seeded generator `src/spend_classification/synth/` (`make data`), separate from Agent #1's:
   - AP non-PO invoices (10,430 rows), PO lines (4,960) and P-card (4,568); 19,858 unique lines
@@ -27,7 +27,6 @@
   Makefile).
 
 ## Decisions waiting on the owner
-- **Approve the draft taxonomy** (or request changes) before Phase 3 uses it as the enum.
 - Verify the UNSPSC crosswalk, or drop it.
 
 ## Next: Phase 2 — vendor normalization
