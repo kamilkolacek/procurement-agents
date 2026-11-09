@@ -1,0 +1,19 @@
+# Install once with: uvx pre-commit install
+repos:
+  - repo: local
+    hooks:
+      - id: secret-pii-scan
+        name: secret and PII scan
+        entry: uv run --quiet python scripts/scan_secrets.py
+        language: system
+        pass_filenames: false
+      - id: prompt-hash
+        name: prompt manifest check
+        entry: uv run --quiet python -m shared.evals.prompt_manifest --check agents/spend-classification/prompts
+        language: system
+        pass_filenames: false
+      - id: ruff
+        name: ruff
+        entry: uv run --quiet ruff check
+        language: system
+        types: [python]

@@ -1,0 +1,71 @@
+{
+  "agent": "spend-classification",
+  "mode": "full",
+  "generated_at": "2026-11-09T05:25:04+00:00",
+  "metrics": {
+    "vendor_resolution_f1": {
+      "value": null,
+      "target": 0.95,
+      "direction": "min",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 2
+    },
+    "category_accuracy_l1": {
+      "value": null,
+      "target": 0.95,
+      "direction": "min",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 3
+    },
+    "category_accuracy_l2": {
+      "value": null,
+      "target": 0.9,
+      "direction": "min",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 3
+    },
+    "high_confidence_precision": {
+      "value": null,
+      "target": 0.98,
+      "direction": "min",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 3
+    },
+    "planted_opportunity_recall": {
+      "value": null,
+      "target": 0.9,
+      "direction": "min",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 4
+    },
+    "savings_sizing_abs_error": {
+      "value": null,
+      "target": 0.05,
+      "direction": "max",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 4
+    },
+    "untraceable_figures": {
+      "value": null,
+      "target": 0,
+      "direction": "max",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 5
+    },
+    "injection_pass_rate": {
+      "value": null,
+      "target": 1.0,
+      "direction": "min",
+      "baseline": null,
+      "status": "not_measured",
+      "phase": 3
+    }
+  }
+}

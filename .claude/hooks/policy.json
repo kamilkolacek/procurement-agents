@@ -1,0 +1,36 @@
+{
+  "_comment": "Path policy for .claude/hooks/pre_tool.py. Paths are repo-relative, '*' matches one path segment. This file is itself protected.",
+  "blocked_always": [
+    "agents/*/data/real/",
+    ".env",
+    ".env.*",
+    "credentials*",
+    "*.pem",
+    "*.key",
+    ".claude/OVERRIDE"
+  ],
+  "protected_need_override": [
+    "governance/",
+    ".claude/",
+    ".github/",
+    "CLAUDE.md",
+    "agents/*/CLAUDE.md",
+    "Makefile",
+    "pyproject.toml",
+    ".pre-commit-config.yaml",
+    "HUMAN_IN_THE_LOOP.md",
+    "LICENSE",
+    "agents/*/evals/golden/",
+    "agents/*/evals/reports/baseline.json",
+    "shared/evals/targets.toml",
+    "agents/*/taxonomy/"
+  ],
+  "writable_roots": [
+    "agents/spend-classification/",
+    "shared/",
+    "scripts/",
+    "tests/",
+    "README.md",
+    "INSTRUCTIONS.md"
+  ]
+}

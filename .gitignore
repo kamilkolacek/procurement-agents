@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+credentials*.json
+
+# Real data never leaves the machine (also hook-blocked)
+agents/*/data/real/*
+!agents/*/data/real/.gitkeep
+
+# Run artifacts: only synthetic samples are committed deliberately
+agents/*/runs/*
+!agents/*/runs/.gitkeep
+agents/*/outputs/*
+!agents/*/outputs/.gitkeep
+
+# Smoke eval output is rewritten on every Stop; full reports are committed deliberately
+agents/*/evals/reports/smoke.json
+
+# Dev-time audit log and human override token
+logs/
+.claude/OVERRIDE
+.claude/settings.local.json
+
+.DS_Store
