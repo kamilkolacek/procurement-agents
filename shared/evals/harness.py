@@ -103,6 +103,27 @@ def render_markdown(agent: str, results: dict[str, dict[str, Any]], generated_at
     return "\n".join(lines) + "\n"
 
 
+def golden_integrity(agent_dir: Path) -> list[str]:
+    """Compare committed data and golden files with the generator's manifest hashes.
+
+    An edited answer key (or exports changed by hand) fails the gate; regenerate with
+    `make data` instead. Returns a list of problems; empty means intact (or no manifest yet).
+    """
+    import hashlib
+
+    mf = agent_dir / "evals" / "golden" / "answer_key_manifest.json"
+    if not mf.exists():
+        return []
+    problems = []
+    for rel, digest in json.loads(mf.read_text()).get("files", {}).items():
+        f = agent_dir / rel
+        if not f.exists():
+            problems.append(f"{rel}: missing")
+        elif hashlib.sha256(f.read_bytes()).hexdigest() != digest:
+            problems.append(f"{rel}: hash differs from answer_key_manifest.json")
+    return problems
+
+
 def run(agent: str, mode: str, update_baseline: bool = False) -> int:
     agent_dir = REPO_ROOT / "agents" / agent
     if not agent_dir.is_dir():
@@ -115,6 +136,14 @@ def run(agent: str, mode: str, update_baseline: bool = False) -> int:
     if missing:
         print(f"no scorer registered for: {sorted(missing)}", file=sys.stderr)
         return 2
+
+    integrity = golden_integrity(agent_dir)
+    for problem in integrity:
+        print(f"golden integrity: {problem}", file=sys.stderr)
+    if integrity:
+        print("EVAL GATE FAILED: golden set or synthetic data does not match its manifest",
+              file=sys.stderr)
+        return 1
 
     ctx = EvalContext(agent_dir=agent_dir, mode=mode)
     values = {name: SCORERS[name](ctx) for name in targets}

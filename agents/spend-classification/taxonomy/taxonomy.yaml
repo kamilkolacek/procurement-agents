@@ -1,0 +1,132 @@
+# Spend taxonomy — DRAFT for human approval (Phase 1). See ADR 0002 and skill spend-taxonomy.
+# risk: high => every line in this category goes to the review queue.
+# unspsc: draft crosswalk at segment/family level, NOT yet verified against the UNSPSC code set.
+version: "2026.1-draft"
+status: draft
+unspsc_crosswalk_status: unverified
+
+categories:
+  - l1: IT
+    name: Information Technology
+    l2:
+      - {code: IT.SAAS, name: Software subscriptions (SaaS), risk: low, unspsc: ["43230000"],
+         include: [subscription, license, seats, platform fee], exclude: [hardware, consulting]}
+      - {code: IT.CLOUD, name: Cloud hosting and infrastructure, risk: low, unspsc: ["81110000"],
+         include: [compute, storage, hosting, usage], exclude: [SaaS application seats]}
+      - {code: IT.HARDWARE, name: Computer hardware and peripherals, risk: low, unspsc: ["43210000"],
+         include: [laptop, monitor, dock, keyboard, cable], exclude: [phone service]}
+      - {code: IT.TELECOM, name: Telecom and connectivity, risk: low, unspsc: ["83110000"],
+         include: [mobile plan, internet circuit, telephony]}
+      - {code: IT.SERVICES, name: IT services and support, risk: low, unspsc: ["81110000"],
+         include: [managed services, helpdesk, implementation], exclude: [software license]}
+      - {code: IT.SECURITY, name: Security software and services, risk: low, unspsc: ["43233200"],
+         include: [endpoint protection, penetration test, SOC monitoring]}
+
+  - l1: PROF
+    name: Professional Services
+    l2:
+      - {code: PROF.LEGAL, name: Legal services, risk: high, unspsc: ["80120000"],
+         include: [legal fees, counsel, retainer, litigation]}
+      - {code: PROF.CONSULT, name: Management consulting, risk: high, unspsc: ["80100000"],
+         include: [advisory, strategy, assessment, workshop]}
+      - {code: PROF.AUDIT, name: Audit, tax and accounting services, risk: high, unspsc: ["84110000"],
+         include: [audit fees, tax preparation, bookkeeping]}
+      - {code: PROF.CONTRACT_LABOR, name: Contractors and temporary staff, risk: high, unspsc: ["80111600"],
+         include: [contractor hours, temp staff, timesheet], exclude: [recruiting fee]}
+      - {code: PROF.RECRUIT, name: Recruiting and staffing fees, risk: low, unspsc: ["80110000"],
+         include: [placement fee, job board, background check]}
+
+  - l1: MKT
+    name: Marketing
+    l2:
+      - {code: MKT.ADS, name: Advertising and media, risk: low, unspsc: ["82100000"],
+         include: [ads, media buy, sponsored, campaign spend]}
+      - {code: MKT.AGENCY, name: Marketing agencies and creative, risk: low, unspsc: ["80140000"],
+         include: [agency retainer, creative, design, PR]}
+      - {code: MKT.EVENTS, name: Events, trade shows and promo items, risk: low, unspsc: ["80141900"],
+         include: [booth, conference, swag, venue]}
+      - {code: MKT.PRINT, name: Printing and collateral, risk: low, unspsc: ["82120000"],
+         include: [brochures, business cards, banners, print run]}
+
+  - l1: FAC
+    name: Facilities
+    l2:
+      - {code: FAC.RENT, name: Rent and leases, risk: high, unspsc: ["80130000"],
+         include: [rent, lease, CAM charges]}
+      - {code: FAC.UTIL, name: Utilities, risk: low, unspsc: ["83100000"],
+         include: [electricity, water, gas, waste]}
+      - {code: FAC.CLEAN, name: Cleaning and janitorial, risk: low, unspsc: ["76110000"],
+         include: [janitorial, cleaning, sanitation]}
+      - {code: FAC.MAINT, name: Building maintenance and repair, risk: low, unspsc: ["72100000"],
+         include: [HVAC, repair, plumbing, elevator]}
+      - {code: FAC.SECURITY, name: Physical security, risk: low, unspsc: ["92120000"],
+         include: [guard services, access control, alarm monitoring]}
+
+  - l1: "OFF"
+    name: Office
+    l2:
+      - {code: OFF.SUPPLIES, name: Office supplies, risk: low, unspsc: ["44120000"],
+         include: [paper, toner, pens, binders], exclude: [furniture, computer hardware]}
+      - {code: OFF.FURNITURE, name: Office furniture, risk: low, unspsc: ["56110000"],
+         include: [desk, chair, shelving]}
+      - {code: OFF.KITCHEN, name: Breakroom and kitchen supplies, risk: low, unspsc: ["50000000"],
+         include: [coffee, snacks, water delivery, cups]}
+
+  - l1: TRV
+    name: Travel and Entertainment
+    l2:
+      - {code: TRV.AIR, name: Airfare, risk: low, unspsc: ["78111500"], include: [flight, airline, fare]}
+      - {code: TRV.LODGING, name: Hotels and lodging, risk: low, unspsc: ["90111500"],
+         include: [hotel, room night, lodging]}
+      - {code: TRV.GROUND, name: Ground transport, risk: low, unspsc: ["78111800"],
+         include: [taxi, rideshare, car rental, rail, parking]}
+      - {code: TRV.MEALS, name: Meals and entertainment, risk: low, unspsc: ["90101500"],
+         include: [restaurant, catering, team meal]}
+
+  - l1: LOG
+    name: Logistics
+    l2:
+      - {code: LOG.FREIGHT, name: Freight and trucking, risk: low, unspsc: ["78100000"],
+         include: [LTL, FTL, freight, linehaul]}
+      - {code: LOG.COURIER, name: Courier and parcel, risk: low, unspsc: ["78102200"],
+         include: [parcel, courier, overnight, same-day]}
+      - {code: LOG.WAREHOUSE, name: Warehousing and storage, risk: low, unspsc: ["78130000"],
+         include: [storage, pallet, 3PL, fulfilment]}
+      - {code: LOG.PACKAGING, name: Packaging materials, risk: low, unspsc: ["24120000"],
+         include: [boxes, stretch wrap, tape, pallets]}
+      - {code: LOG.FLEET, name: Fleet and vehicles, risk: low, unspsc: ["25100000"],
+         include: [vehicle lease, fuel card, fleet maintenance]}
+
+  - l1: DIR
+    name: Direct Materials
+    l2:
+      - {code: DIR.RAW_MATERIALS, name: Raw materials, risk: low, unspsc: ["11000000"],
+         include: [resin, steel, aluminium, sheet, pellets]}
+      - {code: DIR.COMPONENTS, name: Components and parts, risk: low, unspsc: ["31000000"],
+         include: [bearings, fasteners, gaskets, PCB, motors]}
+      - {code: DIR.MRO, name: MRO and consumables, risk: low, unspsc: ["27000000"],
+         include: [gloves, lubricant, safety, tools, abrasives]}
+
+  - l1: FIN
+    name: Finance and Insurance
+    l2:
+      - {code: FIN.INSURANCE, name: Insurance premiums, risk: high, unspsc: ["84130000"],
+         include: [premium, policy, coverage]}
+      - {code: FIN.BANK_FEES, name: Bank and payment fees, risk: low, unspsc: ["84120000"],
+         include: [bank fee, merchant fee, wire fee]}
+      - {code: FIN.DONATIONS, name: Donations and sponsorships, risk: high, unspsc: ["94000000"],
+         include: [donation, charitable, sponsorship of nonprofit]}
+
+  - l1: HR
+    name: People
+    l2:
+      - {code: HR.BENEFITS, name: Employee benefits administration, risk: high, unspsc: ["84131500"],
+         include: [benefits admin, wellness program, EAP]}
+      - {code: HR.TRAINING, name: Training and education, risk: low, unspsc: ["86000000"],
+         include: [course, certification, workshop seat, e-learning]}
+
+  - l1: UNCLASSIFIED
+    name: Unclassified
+    l2:
+      - {code: UNCLASSIFIED.REVIEW, name: Needs human review, risk: high, unspsc: [],
+         include: [], exclude: []}

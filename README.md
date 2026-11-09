@@ -6,7 +6,8 @@ classified spend, a clean vendor master, and a monthly brief of sized savings op
 Every figure in that brief comes from deterministic code and traces back to a query, and every
 label the model is unsure of goes to a human.
 
-> **Status: Phase 0 (harness) complete.** No pipeline stages are built yet. See
+> **Status: Phase 1 complete:** harness, draft taxonomy, about 20k lines of seeded synthetic
+> spend, and a golden answer key. No pipeline stages are built yet. See
 > [`agents/spend-classification/STATUS.md`](agents/spend-classification/STATUS.md).
 
 ## Core rule: code computes, the LLM judges
@@ -45,7 +46,8 @@ cd procurement-agents
 make setup
 make check        # lint, tests, secret scan, prompt-hash check, eval gate
 ```
-The synthetic-data quickstart (`make data && make run`) arrives in Phases 1-5.
+`make data` regenerates the synthetic exports and answer key (same seed, identical files).
+`make run` arrives with the pipeline in Phases 2-5.
 
 ## Eval scorecard
 | Metric | Target | Current |

@@ -1,6 +1,7 @@
 AGENT ?= spend-classification
 RUN   ?=
 UV    := uv run --quiet
+PYPATH := PYTHONPATH=.:agents/$(AGENT)/src
 
 .PHONY: help setup lint test check scan prompt-hash eval eval-smoke data run review audit-pack
 
@@ -41,5 +42,8 @@ eval-smoke:
 
 check: lint test scan prompt-hash eval-smoke
 
-data run review audit-pack:
+data:
+	$(PYPATH) $(UV) python -m spend_classification.synth
+
+run review audit-pack:
 	@echo "make $@: not built yet (see agents/$(AGENT)/STATUS.md for the phase that adds it)"; exit 1

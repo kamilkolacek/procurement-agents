@@ -1,0 +1,125 @@
+{
+  "as_of": "2026-10-31",
+  "window": {
+    "start": "2025-11-01",
+    "end": "2026-10-31"
+  },
+  "rules": "savings-playbook (fragmentation rate 8%; creep >3%/quarter; gap >10%)",
+  "matching": "a detection matches when type and l2 agree and, where present, item_code agrees; recall = matched / planted",
+  "opportunities": [
+    {
+      "id": "FRAG-OFF.SUPPLIES",
+      "type": "fragmentation",
+      "l2": "OFF.SUPPLIES",
+      "golden_vendor_ids": [
+        "GV0138",
+        "GV0139",
+        "GV0140"
+      ],
+      "expected_savings": "10854.39",
+      "evidence_lines": 652,
+      "sizing": "(category spend - top vendor spend) x 0.08, trailing 12 months"
+    },
+    {
+      "id": "FRAG-LOG.COURIER",
+      "type": "fragmentation",
+      "l2": "LOG.COURIER",
+      "golden_vendor_ids": [
+        "GV0205",
+        "GV0206",
+        "GV0207"
+      ],
+      "expected_savings": "3343.22",
+      "evidence_lines": 363,
+      "sizing": "(category spend - top vendor spend) x 0.08, trailing 12 months"
+    },
+    {
+      "id": "CREEP-1",
+      "type": "price_creep",
+      "l2": "IT.HARDWARE",
+      "item_code": "IT-01628",
+      "golden_vendor_ids": [
+        "GV0027"
+      ],
+      "planted_rate": "4% per quarter",
+      "expected_savings": "49129.78",
+      "evidence_lines": 108,
+      "sizing": "(last-block qty-weighted unit price - block-0 qty-weighted unit price) x trailing-12-month qty; blocks are 3-month periods from 2025-05-01"
+    },
+    {
+      "id": "CREEP-2",
+      "type": "price_creep",
+      "l2": "DIR.COMPONENTS",
+      "item_code": "DIR-01630",
+      "golden_vendor_ids": [
+        "GV0224"
+      ],
+      "planted_rate": "4% per quarter",
+      "expected_savings": "111493.98",
+      "evidence_lines": 120,
+      "sizing": "(last-block qty-weighted unit price - block-0 qty-weighted unit price) x trailing-12-month qty; blocks are 3-month periods from 2025-05-01"
+    },
+    {
+      "id": "PRICEGAP-1",
+      "type": "price_gap",
+      "l2": "DIR.MRO",
+      "item_code": "DIR-01632",
+      "golden_vendor_ids": [
+        "GV0232",
+        "GV0233"
+      ],
+      "expected_savings": "2780.70",
+      "evidence_lines": 96,
+      "sizing": "sum over non-best-vendor lines of (unit price - best vendor qty-weighted unit price) x qty, trailing 12 months"
+    },
+    {
+      "id": "OFFCON-1",
+      "type": "off_contract",
+      "l2": "DIR.COMPONENTS",
+      "item_code": "DIR-01636",
+      "contract_id": "CT-0013",
+      "contract_price": "3.10",
+      "golden_vendor_ids": [
+        "GV0225",
+        "GV0226"
+      ],
+      "also_matches": [
+        "price_gap"
+      ],
+      "notes": "Non-contract vendor at a higher price; also a same-item price gap. Report once (larger figure) per the playbook overlap rule.",
+      "expected_savings": "8690.76",
+      "evidence_lines": 33,
+      "sizing": "sum over lines from a non-contract vendor or above contract price of (unit price - contract price) x qty, trailing 12 months"
+    },
+    {
+      "id": "OFFCON-2",
+      "type": "off_contract",
+      "l2": "LOG.PACKAGING",
+      "item_code": "LOG-01637",
+      "contract_id": "CT-0014",
+      "contract_price": "2.45",
+      "golden_vendor_ids": [
+        "GV0211"
+      ],
+      "notes": "Contract vendor billing above contract price.",
+      "expected_savings": "6248.88",
+      "evidence_lines": 28,
+      "sizing": "sum over lines from a non-contract vendor or above contract price of (unit price - contract price) x qty, trailing 12 months"
+    },
+    {
+      "id": "DUP-1",
+      "type": "duplicate_vendor",
+      "l2": "FAC.CLEAN",
+      "golden_vendor_ids": [
+        "GV0120"
+      ],
+      "erp_vendor_ids": [
+        "S17779",
+        "S21715"
+      ],
+      "notes": "Same supplier under two ERP IDs; not sized as savings.",
+      "expected_savings": null,
+      "evidence_lines": 286
+    }
+  ]
+}
