@@ -1,1 +1,5 @@
-"""Stage 0: ingest and validate AP/PO/P-card exports (schema, dedupe, input hash). Phase 1."""
+"""Stage 0: ingest and validate."""
+
+from .loader import IngestError, IngestResult, Line, ingest
+
+__all__ = ["IngestError", "IngestResult", "Line", "ingest"]

@@ -37,9 +37,53 @@ def _not_built(_: EvalContext) -> float | None:
     return None
 
 
+def pairwise_f1(pred: dict[Any, str], truth: dict[Any, str]) -> dict[str, float]:
+    """Pairwise precision/recall/F1 of a clustering over the keys both sides know."""
+    from collections import Counter
+
+    keys = [k for k in truth if k in pred]
+    pairs = lambda n: n * (n - 1) // 2  # noqa: E731
+    both = sum(pairs(c) for c in Counter((pred[k], truth[k]) for k in keys).values())
+    p_pairs = sum(pairs(c) for c in Counter(pred[k] for k in keys).values())
+    t_pairs = sum(pairs(c) for c in Counter(truth[k] for k in keys).values())
+    prec = both / p_pairs if p_pairs else 1.0
+    rec = both / t_pairs if t_pairs else 1.0
+    f1 = 2 * prec * rec / (prec + rec) if prec + rec else 0.0
+    return {"precision": prec, "recall": rec, "f1": f1, "keys": float(len(keys)),
+            "missing": float(len(truth) - len(keys))}
+
+
+def vendor_resolution_detail(ctx: EvalContext) -> dict[str, float]:
+    """Run stages 0-1 on the committed synthetic data and score against the golden aliases.
+
+    The pipeline never sees the golden files; only this scorer reads them.
+    """
+    import csv
+
+    src = str(ctx.agent_dir / "src")
+    if src not in sys.path:
+        sys.path.insert(0, src)
+    from spend_classification.ingest import ingest
+    from spend_classification.vendors import resolve
+
+    res = resolve(ingest(ctx.agent_dir / "data" / "synthetic").lines)
+    gold = ctx.agent_dir / "evals" / "golden" / "vendor_aliases.csv"
+    with gold.open(newline="", encoding="utf-8") as fh:
+        truth = {(r["source"], r["raw_name"], r["erp_vendor_id"]): r["golden_id"]
+                 for r in csv.DictReader(fh)}
+    return pairwise_f1(res.alias_to_entity, truth)
+
+
+def _vendor_resolution_f1(ctx: EvalContext) -> float | None:
+    d = vendor_resolution_detail(ctx)
+    if d["missing"]:  # the golden key names a raw vendor string the pipeline never saw
+        return None
+    return round(d["f1"], 4)
+
+
 # Phase 0: every scorer is a placeholder. Each phase replaces its metrics' scorers.
 SCORERS: dict[str, Scorer] = {
-    "vendor_resolution_f1": _not_built,
+    "vendor_resolution_f1": _vendor_resolution_f1,
     "category_accuracy_l1": _not_built,
     "category_accuracy_l2": _not_built,
     "high_confidence_precision": _not_built,
